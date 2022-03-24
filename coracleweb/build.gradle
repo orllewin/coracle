@@ -1,0 +1,38 @@
+plugins {
+    id 'org.jetbrains.kotlin.js' version '1.6.10'
+}
+
+group = 'orllewin'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+}
+
+kotlin {
+    js(LEGACY) {
+        binaries.executable()
+        browser {
+            commonWebpackConfig {
+                cssSupport.enabled = true
+            }
+            testTask {
+                enabled = false
+            }
+            sourceSets{
+
+            }
+        }
+    }
+    sourceSets {
+        main {
+            kotlin {
+                srcDirs += "../coraclecore/src/main/kotlin/"
+            }
+        }
+    }
+}

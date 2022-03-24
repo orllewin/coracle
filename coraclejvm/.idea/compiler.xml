@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel target="16">
+      <module name="coraclecore.commonMain" target="1.8" />
+      <module name="coraclecore.commonTest" target="1.8" />
+      <module name="coraclecore.jvmMain" target="1.8" />
+      <module name="coraclecore.jvmTest" target="1.8" />
+      <module name="CoracleJVM.coraclecore.commonMain" target="1.8" />
+      <module name="CoracleJVM.coraclecore.commonTest" target="1.8" />
+      <module name="CoracleJVM.coraclecore.jvmMain" target="1.8" />
+      <module name="CoracleJVM.coraclecore.jvmTest" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

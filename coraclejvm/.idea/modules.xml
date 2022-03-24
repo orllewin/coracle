@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/coraclecore.iml" filepath="$PROJECT_DIR$/.idea/modules/coraclecore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/coraclecore.commonMain.iml" filepath="$PROJECT_DIR$/.idea/modules/coraclecore.commonMain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/coraclecore.commonTest.iml" filepath="$PROJECT_DIR$/.idea/modules/coraclecore.commonTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/coraclecore.jsMain.iml" filepath="$PROJECT_DIR$/.idea/modules/coraclecore.jsMain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/coraclecore.jsTest.iml" filepath="$PROJECT_DIR$/.idea/modules/coraclecore.jsTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/coraclecore.jvmMain.iml" filepath="$PROJECT_DIR$/.idea/modules/coraclecore.jvmMain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/coraclecore.jvmTest.iml" filepath="$PROJECT_DIR$/.idea/modules/coraclecore.jvmTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/coraclecore.nativeMain.iml" filepath="$PROJECT_DIR$/.idea/modules/coraclecore.nativeMain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/coraclecore.nativeTest.iml" filepath="$PROJECT_DIR$/.idea/modules/coraclecore.nativeTest.iml" />
+    </modules>
+  </component>
+</project>
