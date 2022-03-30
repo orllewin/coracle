@@ -2,14 +2,15 @@ package coracle
 
 import kotlin.random.Random
 
-fun color(r: Int, g: Int, b: Int): Int{
+@Deprecated("Use Colour(r,g,b) instead")
+fun color(r: Int, g: Int, b: Int): Int {
     var colour: Int = r
     colour = (colour shl 8) + g
     colour = (colour shl 8) + b
     return colour
 }
 
-    fun color(r: Float, g: Float, b: Float): Int = color(r.toInt(), g.toInt(), b.toInt())
+fun color(r: Float, g: Float, b: Float): Int = color(r.toInt(), g.toInt(), b.toInt())
 
 fun red(colour: Int): Int = (colour shr 16) and 0xFF
 fun green(colour: Int): Int = (colour shr 8) and 0xFF
@@ -22,14 +23,21 @@ fun lerpColor(startColor: Int, endColor: Int, amount: Float): Int{
     val eR = red(endColor)
     val eG = green(endColor)
     val eB = blue(endColor)
-    val r = lerp(sR.toFloat(), eR.toFloat(), amount)
-    val g = lerp(sG.toFloat(), eG.toFloat(), amount)
-    val b = lerp(sB.toFloat(), eB.toFloat(), amount)
+    val r = lerpA(sR.toFloat(), eR.toFloat(), amount)
+    val g = lerpA(sG.toFloat(), eG.toFloat(), amount)
+    val b = lerpA(sB.toFloat(), eB.toFloat(), amount)
     return color(r.toInt(), g.toInt(), b.toInt())
 }
 
-private fun lerp(start: Float, end: Float, amount: Float): Float {
+
+//Precise
+fun lerpA(start: Float, end: Float, amount: Float): Float {
     return start * (1-amount) + end * amount
+}
+
+//Less precise
+fun lerpB(a: Float, b: Float, i: Float): Float{
+    return a + i * (b - a)
 }
 
 fun map(value: Float, start1: Float, stop1: Float, start2: Float, stop2: Float): Float =

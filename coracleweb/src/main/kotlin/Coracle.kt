@@ -1,9 +1,9 @@
-import examples.experiments.LifeDrawing2
+import examples.basics.ColourLerpDrawing
 
 fun main() {
     console.log("Coracle")
 
-    LifeDrawing2()
+    ColourLerpDrawing()
         .renderer(WebRenderer("coracle_canvas"))
         .start()
 }

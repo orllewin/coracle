@@ -1,7 +1,7 @@
-import  examples.experiments.CirclePackingDrawing
+import  examples.algorithms.*
 
 fun main() {
-    CirclePackingDrawing()
+    SpatialHashCirclePacking()
         .renderer(JVMRenderer())
         .start()
 }

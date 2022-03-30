@@ -14,11 +14,6 @@ class LifeDrawing2: Drawing() {
     override fun setup() {
         size(500, 500)
         translate(5, 5)
-
-        respawn()
-    }
-
-    fun respawn(){
         cellsArray.forEachIndexed { index, cell ->
             cell.x = index % 50
             cell.y = (index / 50) % 50

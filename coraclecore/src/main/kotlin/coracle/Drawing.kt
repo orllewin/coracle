@@ -1,5 +1,7 @@
 package coracle
 
+import coracle.shapes.Rect
+
 abstract class Drawing {
 
     var width = 100
@@ -57,10 +59,7 @@ abstract class Drawing {
         yTranslation = y
     }
 
-    fun translate(x: Float, y: Float){
-        xTranslation = x.toInt()
-        yTranslation = y.toInt()
-    }
+    fun translate(x: Float, y: Float) = translate(x.toInt(), y.toInt())
 
     fun smooth() = renderer.smooth()
     fun noSmooth() = renderer.noSmooth()
@@ -75,6 +74,7 @@ abstract class Drawing {
     fun background(colour: Int) = renderer.background(colour)
     fun background() = renderer.background(WHITE)
     fun fill(colour: Int) = renderer.fill(colour)
+    fun fill(colour: Colour) = renderer.fill(colour.c)
     fun fill(colour: Int, alpha: Float) = renderer.fill(colour, alpha)
     fun noFill() = renderer.noFill()
     fun stroke(colour: Int) = renderer.stroke(colour)
@@ -85,24 +85,12 @@ abstract class Drawing {
     //Shape primitives
     fun line(x1: Int, y1: Int, x2: Int, y2: Int) = renderer.line(x1 + xTranslation, y1 + yTranslation, x2 + xTranslation, y2 + yTranslation)
     fun line(x1: Float, y1: Float, x2: Float, y2: Float) = renderer.line(x1.toInt() +xTranslation, y1.toInt() + yTranslation, x2.toInt() + xTranslation, y2.toInt() + yTranslation)
+    fun circle(cX: Number, cY: Number, r: Number) = renderer.circle(cX.toInt() + xTranslation, cY.toInt() + yTranslation, r.toInt())
     fun circle(cX: Int, cY: Int, r: Int) = renderer.circle(cX + xTranslation, cY + yTranslation, r)
     fun circle(cX: Float, cY: Float, r: Int) = renderer.circle(cX.toInt() + xTranslation, cY.toInt() + yTranslation, r)
     fun point(x: Int, y: Int) = renderer.point(x + xTranslation, y + yTranslation)
     fun point(x: Float, y: Float) = renderer.point(x.toInt() + xTranslation, y.toInt() + yTranslation)
     fun rect(x1: Int, y1: Int, width: Int, height: Int) = renderer.rect(x1 + xTranslation, y1 + yTranslation, width, height)
+    fun rect(rect: Rect) = renderer.rect(rect.x.toInt(), rect.y.toInt(), rect.width.toInt(), rect.height.toInt())
     fun square(cX: Int, cY: Int, d: Int) = renderer.rect(cX - d/2 + xTranslation, cY - d/2 + yTranslation, d/2, d/2)
-
-    //Infixes
-    open inner class Shape{
-        infix fun at(coord: Coord){
-            when (this) {
-                is Circle -> circle(coord.x.toInt(), coord.y.toInt(), this.radius)
-                is Square -> square(coord.x.toInt(), coord.y.toInt(), this.diam)
-                is Point -> point(coord.x.toInt(), coord.y.toInt())
-            }
-        }
-    }
-    inner class Circle(var radius: Int): Shape()
-    inner class Square(var diam: Int): Shape()
-    inner class Point: Shape()
 }

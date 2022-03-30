@@ -5,6 +5,9 @@ import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt
 
+/*
+    A basic brute-force approach to Circle Packing
+ */
 class CirclePackingDrawing: Drawing() {
 
     private var circles = mutableListOf<Circle>()
@@ -36,40 +39,31 @@ class CirclePackingDrawing: Drawing() {
         return Coord(width/2 + x.toFloat(), height/2 + y.toFloat())
     }
 
-    private fun inBoundary(circle: Circle): Boolean{
-        val squareDistance = ((width/2 - circle.location.x) * (width/2 - circle.location.x)) + ((height/2 - circle.location.y) * (height/2 - circle.location.y))
-        return squareDistance <= 250 * 250
-    }
-
     fun collision(circle: Circle): Boolean{
         circles.forEach { other ->
-            if(other != circle){
-                if(circle.location.distance(other.location) <= circle.r + other.r){
-                    return true
-                }
-            }
+            if(other != circle && circle intersects other) return true
         }
 
         return false
     }
 
+
+
     inner class Circle(x: Int, y: Int, var r: Int){
 
         var growing = true
         val location = Vector(x, y)
-        val color = color(random(150, 235), random(210, 255), random(150, 235))
+        val color = color(random(150, 225), random(210, 255), random(200, 235))
 
         fun grow(): Circle{
             if(!growing) return this
-
             r++
-
-            //if(r > 20) growing = false
-
+            if(r > 15) growing = false
             if(collision(this)) growing = false
-
             return this
         }
+
+        infix fun intersects(other: Circle): Boolean = location.distance(other.location) <= r + other.r
 
         fun draw(){
             fill(color, 0.5f)
