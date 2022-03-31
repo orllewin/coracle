@@ -18,7 +18,7 @@ class OrllewinDrawing: Drawing() {
     private var backgroundColour = 0xeeeae4
 
     override fun setup() {
-        size(450, 350)
+        size(450, 550)
         wellA = Vector((width/6) * 1.5, height/2)
         wellB = Vector(width/2, height/2)
         wellC = Vector((width/6) * 4.5, height/2)
@@ -30,7 +30,7 @@ class OrllewinDrawing: Drawing() {
     }
 
     override fun draw() {
-        matchWindow()
+        matchWidth()
         wellA.x = (width/6f) * 1.5f
         wellB.x = (width/2f)
         wellC.x = (width/6) * 4.5f

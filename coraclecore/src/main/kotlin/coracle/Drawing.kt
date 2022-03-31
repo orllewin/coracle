@@ -1,5 +1,6 @@
 package coracle
 
+import coracle.shapes.Line
 import coracle.shapes.Rect
 
 abstract class Drawing {
@@ -87,6 +88,7 @@ abstract class Drawing {
     //Shape primitives
     fun line(x1: Int, y1: Int, x2: Int, y2: Int) = renderer.line(x1 + xTranslation, y1 + yTranslation, x2 + xTranslation, y2 + yTranslation)
     fun line(x1: Float, y1: Float, x2: Float, y2: Float) = renderer.line(x1.toInt() +xTranslation, y1.toInt() + yTranslation, x2.toInt() + xTranslation, y2.toInt() + yTranslation)
+    fun line(line: Line) = renderer.line(line.x1.toInt() +xTranslation, line.y1.toInt() + yTranslation, line.x2.toInt() + xTranslation, line.y2.toInt() + yTranslation)
     fun circle(cX: Number, cY: Number, r: Number) = renderer.circle(cX.toInt() + xTranslation, cY.toInt() + yTranslation, r.toInt())
     fun circle(cX: Int, cY: Int, r: Int) = renderer.circle(cX + xTranslation, cY + yTranslation, r)
     fun circle(cX: Float, cY: Float, r: Int) = renderer.circle(cX.toInt() + xTranslation, cY.toInt() + yTranslation, r)

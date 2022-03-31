@@ -1,10 +1,9 @@
-import examples.basics.HelloCoracleDrawing
-import examples.basics.TextDrawing
+import examples.experiments.CatmulRomDrawing
 
 fun main() {
     console.log("Coracle")
 
-    TextDrawing()
+    CatmulRomDrawing()
         .renderer(WebRenderer("coracle_canvas"))
         .start()
 }

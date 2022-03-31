@@ -1,7 +1,7 @@
 import  examples.algorithms.*
 
 fun main() {
-    SpatialHashCirclePacking()
+    CatmulRomDrawing()
         .renderer(JVMRenderer())
         .start()
 }

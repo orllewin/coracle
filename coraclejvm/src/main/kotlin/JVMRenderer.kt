@@ -136,6 +136,8 @@ class JVMRenderer: Renderer() {
         }
     }
 
+    override fun text(text: String, x: Int, y: Int, size: Int) = Unit//todo
+
     private fun strokeColor(): Color{
         return when (strokeAlpha) {
             1f -> Color(stroke)

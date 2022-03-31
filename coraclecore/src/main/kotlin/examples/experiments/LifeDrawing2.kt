@@ -22,8 +22,8 @@ class LifeDrawing2: Drawing() {
     }
 
     override fun draw() {
-        background(0xb7ebd4)
-        fill(0x9b42f5)
+        background(0xeeeae4)
+        fill(0xebb9ce)
         noStroke()
 
         cellsArray.forEach { cell ->
