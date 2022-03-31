@@ -12,8 +12,7 @@ class TadpoleDrawing: Drawing() {
     private val maxPopulation = 70
     private var offspring = 0
     private var maxSize = 8f
-    private var overlayColour = 0xBAE8CA
-    private var tadpoleColour = 0x205F77
+    private var tadpoleColour = 0x9da7cb
 
 
     override fun setup() {
@@ -49,7 +48,7 @@ class TadpoleDrawing: Drawing() {
         tadpoles.addAll(touchOffspring)
         touchOffspring.clear()
 
-        fill(overlayColour, 0.28f)
+        fill(0xeeeae4, 0.28f)
         rect(0, 0, width, height)
     }
 

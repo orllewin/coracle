@@ -4,23 +4,24 @@ import coracle.Drawing
 
 class HelloCoracleDrawing: Drawing() {
 
-    var y = 100
+    var x = 0
 
     override fun setup() {
-        size(450, 450)
+        size(450, 200)
     }
 
     override fun draw() {
-        background(DEFAULT_BACKGROUND)
+        background(0xf5f2f0)
 
-        y -= 1
+        stroke(0xcbb0cc)
+        line(x, 0, x, height/2)
+        line(width/2 + x/2, height/2, width/2 + x/2, height)
+        line( x/2, height/2 + height/4,  x/2, height)
+
+        x += 2
 
         when {
-            y < 0 -> y = height
+            x > width -> x = 0
         }
-
-        stroke(DEFAULT_FOREGROUND)
-        line(0, y, width/2, y)
-        line(width/2, y/2, width, y/2)
     }
 }

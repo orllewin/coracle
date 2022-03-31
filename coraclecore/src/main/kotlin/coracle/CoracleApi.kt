@@ -2,7 +2,6 @@ package coracle
 
 import kotlin.random.Random
 
-@Deprecated("Use Colour(r,g,b) instead")
 fun color(r: Int, g: Int, b: Int): Int {
     var colour: Int = r
     colour = (colour shl 8) + g

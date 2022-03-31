@@ -16,6 +16,8 @@ class LissajousDrawing: Drawing() {
     private var coordA: Coord? = null
     private var coordB: Coord? = null
 
+    private val scale = 180
+
     override fun setup() {
         size(450, 450)
         translate(width/2, height/2)
@@ -36,9 +38,9 @@ class LissajousDrawing: Drawing() {
         if(frame > 3000) initialise()
 
         angle = (frame/ waveLengthA * TWO_PI).toFloat()
-        val y = sin(angle) * (height/4.5)
+        val y = sin(angle) * scale
         angle = (frame/ waveLengthB * TWO_PI).toFloat()
-        val x = (cos(angle) * (width/4.5)) - (width/4.5)
+        val x = cos(angle) * scale
         coords.add(Coord(x.toInt(), y.toInt()))
 
         stroke(DEFAULT_FOREGROUND)

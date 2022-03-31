@@ -1,4 +1,5 @@
 
+import coracle.Colour
 import coracle.Drawing
 import coracle.Drawing.Companion.TAU
 import coracle.Renderer
@@ -6,7 +7,9 @@ import kotlinx.browser.document
 import kotlinx.browser.window
 import org.w3c.dom.CanvasRenderingContext2D
 import org.w3c.dom.HTMLCanvasElement
+import kotlin.math.floor
 import kotlin.math.round
+
 
 class WebRenderer(canvasId: String): Renderer() {
 
@@ -39,7 +42,9 @@ class WebRenderer(canvasId: String): Renderer() {
         }
     }
 
-    override fun init() = Unit//NOOP
+    override fun init(){
+
+    }
 
     override fun size(width: Int, height: Int) {
         canvas.width = width
@@ -124,9 +129,8 @@ class WebRenderer(canvasId: String): Renderer() {
             }
             DrawingMode.Fill -> {
                 context.beginPath()
-                context.rect(x.toDouble(), y.toDouble(), width.toDouble(), height.toDouble())
                 context.fillStyle = colourConvert(fill, fillAlpha)
-                context.fill()
+                context.fillRect(x.toDouble(), y.toDouble(), width.toDouble(), height.toDouble())
                 context.closePath()
             }
             DrawingMode.FillAndStroke -> {
@@ -141,17 +145,15 @@ class WebRenderer(canvasId: String): Renderer() {
         }
     }
 
+    override fun text(text: String, x: Int, y: Int, size: Int) {
+        context.fillStyle = colourConvert(fill, fillAlpha)
+        context.fill()
+        context.font = "${size}px sans-serif"
+        context.fillText(text, x.toDouble(), y.toDouble())
+    }
+
     private fun colourConvert(colour: Int, alpha: Float): String {
-        return when {
-            alpha != 1f -> {
-                val alphaHex = round(alpha * 255.0).toInt().toString(16)
-                when (colour) {
-                    0x000000 -> "#000000$alphaHex"
-                    else -> "#${colour.toString(16)}$alphaHex"
-                }
-            }
-            colour == 0x000000 -> "#000000"
-            else -> "#${colour.toString(16)}"
-        }
+        val c = Colour(colour)
+        return "rgba(${c.r}, ${c.g}, ${c.b}, ${alpha})"
     }
 }

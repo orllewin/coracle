@@ -19,11 +19,10 @@ class CircleDrawing: Drawing() {
         size(450, 450)
         plotRadius  = (width * .75f)/2
         noStroke()
+        translate(width/2, height/2)
     }
 
     override fun draw() {
-        translate(width/2, height/2)
-
         val angle = (step * TWO_PI / segmentCount).toFloat()
 
         fill(0xdcaa88)

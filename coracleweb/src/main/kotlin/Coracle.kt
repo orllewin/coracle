@@ -1,9 +1,10 @@
-import examples.basics.ColourLerpDrawing
+import examples.basics.HelloCoracleDrawing
+import examples.basics.TextDrawing
 
 fun main() {
     console.log("Coracle")
 
-    ColourLerpDrawing()
+    TextDrawing()
         .renderer(WebRenderer("coracle_canvas"))
         .start()
 }

@@ -1,5 +1,7 @@
 package examples.basics
 
+import coracle.Color
+import coracle.Colour
 import coracle.Drawing
 import coracle.color
 
@@ -10,33 +12,78 @@ import coracle.color
     val red = color(255, 0, 0)
     val green = color(0, 255, 0)
     val blue = color(0, 0, 255)
+
+    For interpolating between colours there's the Colour object: val grey = Colour(100, 100, 100)
+    Using Colour lets you use Colour.lerp(a, b, t) which calculates a colour between two others.
  */
 class UsingColoursDrawing: Drawing() {
 
-    private val background = color(255, 225, 225)
-
-    var x = 100
-
     override fun setup() {
-        size(300, 300)
+        size(400, 75)
         noStroke()
     }
 
     override fun draw() {
-        background(background)
+
+        background(Color(255, 200, 235))
+
+        val y = 40
+        val r = 15
+
+        fill(color(255, 0, 200))//Api method, returns Int
+        circle(30, y, r)
+
+        fill(Colour(200, 0, 255))//Colour object
+        circle(70, y, r)
+
+        fill(Color(0, 200, 255))//Color alias, same as Colour
+        circle(110, y, r)
+
+        fill(0x00ccff)//Hexadecimal notation Int
+        circle(150, y, r)
+
+        //Line only, no fill
+        stroke(0x111fff)
+        noFill()
+        circle(190, y, r)
+
+        //Outline, and fill
+        stroke(0x000000)
+        fill(0xffffff)
+        circle(230, y, r)
+
+        //Colour Lerp
+        val a = Color(50, 60, 200)
+        val b = Color(200, 50, 255)
+        fill(Colour.lerp(a, b, 0.1f))
         noStroke()
+        circle(230, y, r)
 
-        fill(color(100, 200, 100))
-        circle(110, 110, 80)
+        fill(Colour.lerp(a, b, 0.2f))
+        circle(245, y, r)
 
-        fill(color(100, 200, 200))
-        square(220, 220, 200)
+        fill(Colour.lerp(a, b, 0.3f))
+        circle(260, y, r)
 
-        x += 1
+        fill(Colour.lerp(a, b, 0.4f))
+        circle(275, y, r)
 
-        if(x >= width) x = 0
+        fill(Colour.lerp(a, b, 0.5f))
+        circle(290, y, r)
 
-        stroke(0xff6666)
-        line(x, 230, x, 270)
+        fill(Colour.lerp(a, b, 0.6f))
+        circle(305, y, r)
+
+        fill(Colour.lerp(a, b, 0.7f))
+        circle(320, y, r)
+
+        fill(Colour.lerp(a, b, 0.8f))
+        circle(335, y, r)
+
+        fill(Colour.lerp(a, b, 0.9f))
+        circle(350, y, r)
+
+        fill(Colour.lerp(a, b, 1f))
+        circle(365, y, r)
     }
 }

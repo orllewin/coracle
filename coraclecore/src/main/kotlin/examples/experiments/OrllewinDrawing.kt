@@ -15,7 +15,7 @@ class OrllewinDrawing: Drawing() {
     private lateinit var wellC: Vector
 
     private var bodyColour = 0x205F77
-    private var backgroundColour = 0xecf8f0
+    private var backgroundColour = 0xeeeae4
 
     override fun setup() {
         size(450, 350)

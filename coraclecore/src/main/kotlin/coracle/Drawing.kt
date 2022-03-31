@@ -72,12 +72,14 @@ abstract class Drawing {
     }
 
     fun background(colour: Int) = renderer.background(colour)
+    fun background(colour: Colour) = renderer.background(colour.c)
     fun background() = renderer.background(WHITE)
     fun fill(colour: Int) = renderer.fill(colour)
     fun fill(colour: Colour) = renderer.fill(colour.c)
     fun fill(colour: Int, alpha: Float) = renderer.fill(colour, alpha)
     fun noFill() = renderer.noFill()
     fun stroke(colour: Int) = renderer.stroke(colour)
+    fun stroke(colour: Colour) = renderer.stroke(colour.c)
     fun stroke(colour: Int, alpha: Float) = renderer.stroke(colour, alpha)
     fun stroke(colour: Int, alpha: Double) = renderer.stroke(colour, alpha.toFloat())
     fun noStroke() = renderer.noStroke()
@@ -93,4 +95,5 @@ abstract class Drawing {
     fun rect(x1: Int, y1: Int, width: Int, height: Int) = renderer.rect(x1 + xTranslation, y1 + yTranslation, width, height)
     fun rect(rect: Rect) = renderer.rect(rect.x.toInt(), rect.y.toInt(), rect.width.toInt(), rect.height.toInt())
     fun square(cX: Int, cY: Int, d: Int) = renderer.rect(cX - d/2 + xTranslation, cY - d/2 + yTranslation, d/2, d/2)
+    fun text(text: String, x: Int, y: Int, size: Int) = renderer.text(text, x, y, size)
 }

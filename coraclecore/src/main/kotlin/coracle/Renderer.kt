@@ -32,6 +32,7 @@ abstract class Renderer {
     abstract fun circle(cX: Int, cY: Int, r: Int)
     abstract fun point(x: Int, y: Int)
     abstract fun rect(x: Int, y: Int, width: Int, height: Int)
+    abstract fun text(text: String, x: Int, y: Int, size: Int)
 
     open fun stroke(colour: Int) {
         stroke = colour

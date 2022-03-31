@@ -12,10 +12,10 @@ class ColourLerpDrawing: Drawing() {
     }
 
     override fun draw() {
-        val colourA = Colour(255, 0, 0)
-        val colourB = Colour(0, 0, 255)
-        val colourC = Colour(0, 255, 0)
-        val colourD = Colour(255, 0, 255)
+        val colourA = Colour(0xf1d4dc)
+        val colourB = Colour(0xc3bdd4)
+        val colourC = Colour(0xebb9ce)
+        val colourD = Colour(0x77bbd2)
 
         val columns = 10
         val columnWidth = width/columns
