@@ -3,7 +3,6 @@ package examples.basics
 import coracle.Color
 import coracle.Colour
 import coracle.Drawing
-import coracle.color
 
 /*
     You can create colours in different ways
@@ -30,10 +29,10 @@ class UsingColoursDrawing: Drawing() {
         val y = 40
         val r = 15
 
-        fill(color(255, 0, 200))//Api method, returns Int
+        fill(Colour(255, 0, 200))//Colour object
         circle(30, y, r)
 
-        fill(Colour(200, 0, 255))//Colour object
+        fill(Colour(200, 0, 255))
         circle(70, y, r)
 
         fill(Color(0, 200, 255))//Color alias, same as Colour

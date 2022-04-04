@@ -1,6 +1,7 @@
 package examples.experiments
 
 import coracle.*
+import coracle.Math
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt
@@ -53,7 +54,7 @@ class CirclePackingDrawing: Drawing() {
 
         var growing = true
         val location = Vector(x, y)
-        val color = color(random(150, 225), random(210, 255), random(200, 235))
+        val color = Colour(random(150, 225), random(210, 255), random(200, 235))
 
         fun grow(): Circle{
             if(!growing) return this

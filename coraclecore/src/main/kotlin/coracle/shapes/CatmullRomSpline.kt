@@ -1,18 +1,25 @@
 package coracle.shapes
 
+import coracle.svg
 import kotlin.math.pow
 
-/**
- * References:
- * - https://stackoverflow.com/a/19283471
- * - https://github.com/Tractive/CatmullRomSpline-kotlin
+/*
+    Derived from: https://github.com/Tractive/CatmullRomSpline-kotlin
+    Which is Apache License 2.0
+    See also: https://stackoverflow.com/a/19283471
  */
 class CatmullRomSpline(
-    private val type: Type,
+    private val type: Int,
     private val detail: Int) {
     private val vertices = arrayListOf<Point>()
     val points = arrayListOf<Point>()
     val lines = arrayListOf<Line>()
+
+    companion object{
+        const val TYPE_UNIFORM = 0
+        const val TYPE_CENTRIPETAL = 1
+        const val TYPE_CHORDAL = 2
+    }
 
     init {
         if(detail < 2) throw IllegalArgumentException("Detail must be >= 2")
@@ -68,13 +75,13 @@ class CatmullRomSpline(
         }
         var tstart = 1.0
         var tend = 2.0
-        if (type != Type.UNIFORM) {
+        if (type != TYPE_UNIFORM) {
             var total = 0.0
             for (i in 1..3) {
                 val dx = x[i] - x[i - 1]
                 val dy = y[i] - y[i - 1]
                 total += when (type) {
-                    Type.CENTRIPETAL -> (dx * dx + dy * dy).pow(.25)
+                    TYPE_CENTRIPETAL -> (dx * dx + dy * dy).pow(.25)
                     else -> (dx * dx + dy * dy).pow(.5)
                 }
                 time[i] = total
@@ -92,6 +99,7 @@ class CatmullRomSpline(
         result.add(vertices[index + 2])
         return result
     }
+
     private fun interpolate(p: DoubleArray, time: DoubleArray, t: Double): Double {
         val L01 = p[0] * (time[1] - t) / (time[1] - time[0]) + p[1] * (t - time[0]) / (time[1] - time[0])
         val L12 = p[1] * (time[2] - t) / (time[2] - time[1]) + p[2] * (t - time[1]) / (time[2] - time[1])
@@ -100,9 +108,15 @@ class CatmullRomSpline(
         val L123 = L12 * (time[3] - t) / (time[3] - time[1]) + L23 * (t - time[1]) / (time[3] - time[1])
         return L012 * (time[2] - t) / (time[2] - time[1]) + L123 * (t - time[1]) / (time[2] - time[1])
     }
-    enum class Type(val alpha: Double) {
-        UNIFORM(0.0),
-        CHORDAL(1.0),
-        CENTRIPETAL(0.5)
+
+    fun toSVG(colour: String, opacity: Float = 1.0f): String {
+        val sb = StringBuilder()
+        sb.append("<polyline points=\"")
+        for (i in 0 until points.size) {
+            sb.append("${points[i].x.svg()},${points[i].y.svg()} ")
+        }
+        sb.dropLast(1)
+        sb.append("\" style=\"stroke:$colour;fill:none;opacity:$opacity;\" />")
+        return sb.toString()
     }
 }

@@ -1,9 +1,7 @@
-import examples.experiments.CatmulRomDrawing
+import examples.experiments.CatmulRomSVGDrawing
 
 fun main() {
-    console.log("Coracle")
-
-    CatmulRomDrawing()
-        .renderer(WebRenderer("coracle_canvas"))
+    CatmulRomSVGDrawing()
+        .renderer(WebRenderer("coracle_canvas", "out_area"))
         .start()
 }

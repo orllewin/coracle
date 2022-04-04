@@ -14,10 +14,6 @@ abstract class Drawing {
     companion object{
         const val BLACK = 0x000000
         const val WHITE = 0xffffff
-        const val PI = 3.1415927
-        const val TWO_PI = 6.2831855
-        const val TAU = 6.2831855
-        const val QUARTER_PI = 0.7853982
 
         const val GREEN_BACKGROUND = 0xecf8f0
         const val RED_BACKGROUND = 0xf8ecf0
@@ -46,6 +42,8 @@ abstract class Drawing {
         renderer.drawing(this)
         renderer.start()
     }
+
+    fun out(output: String) = renderer.out(output)
 
     fun noLoop() = renderer.noLoop()
 
@@ -78,9 +76,11 @@ abstract class Drawing {
     fun fill(colour: Int) = renderer.fill(colour)
     fun fill(colour: Colour) = renderer.fill(colour.c)
     fun fill(colour: Int, alpha: Float) = renderer.fill(colour, alpha)
+    fun fill(colour: Colour, alpha: Float) = renderer.fill(colour.c, alpha)
     fun noFill() = renderer.noFill()
     fun stroke(colour: Int) = renderer.stroke(colour)
     fun stroke(colour: Colour) = renderer.stroke(colour.c)
+    fun stroke(colour: Colour, alpha: Float) = renderer.stroke(colour.c, alpha)
     fun stroke(colour: Int, alpha: Float) = renderer.stroke(colour, alpha)
     fun stroke(colour: Int, alpha: Double) = renderer.stroke(colour, alpha.toFloat())
     fun noStroke() = renderer.noStroke()
@@ -98,4 +98,6 @@ abstract class Drawing {
     fun rect(rect: Rect) = renderer.rect(rect.x.toInt(), rect.y.toInt(), rect.width.toInt(), rect.height.toInt())
     fun square(cX: Int, cY: Int, d: Int) = renderer.rect(cX - d/2 + xTranslation, cY - d/2 + yTranslation, d/2, d/2)
     fun text(text: String, x: Int, y: Int, size: Int) = renderer.text(text, x, y, size)
+
+
 }

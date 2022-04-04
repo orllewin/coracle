@@ -1,8 +1,6 @@
 package examples.experiments
 
-import coracle.Coord
-import coracle.Drawing
-import coracle.random
+import coracle.*
 import kotlin.math.cos
 import kotlin.math.sin
 

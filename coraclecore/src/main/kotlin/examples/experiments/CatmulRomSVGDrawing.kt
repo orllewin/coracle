@@ -2,11 +2,12 @@ package examples.experiments
 
 import coracle.*
 import coracle.shapes.CatmullRomSpline
+import coracle.shapes.Line
 import kotlin.math.cos
 import kotlin.math.max
 import kotlin.math.sin
 
-class CatmulRomDrawing: Drawing() {
+class CatmulRomSVGDrawing: Drawing() {
 
     private val iterations = 692
     private var angle = 0.0
@@ -17,11 +18,14 @@ class CatmulRomDrawing: Drawing() {
 
     private val catmullRom = CatmullRomSpline(CatmullRomSpline.TYPE_CENTRIPETAL, 16)
 
+    private val svg = SVG(875, 450)
+
     override fun setup() {
         size(875, 450)
     }
 
     override fun draw() {
+        out("Starting draw...")
         matchWidth()
         background(0xeeeae4)
 
@@ -65,8 +69,24 @@ class CatmulRomDrawing: Drawing() {
         catmullRom.lines.forEachIndexed { i, line ->
             val c = Colour.lerp(colourA, colourB, (i.toFloat()/points.toFloat()))
             stroke(c, 0.5f)
-            line(mapX(line.x1, xMin.toFloat(), xMax.toFloat()), line.y1, mapX(line.x2, xMin.toFloat(), xMax.toFloat()), line.y2)
+            val line = Line(mapX(line.x1, xMin.toFloat(), xMax.toFloat()), line.y1, mapX(line.x2, xMin.toFloat(), xMax.toFloat()), line.y2)
+            line(line)
+
         }
+
+        val sb = StringBuilder()
+        sb.append("<polyline style=\"stroke:#1A00AA;fill:none;opacity:0.4\" points=\"")
+        for (i in 0 until catmullRom.points.size) {
+            val mappedX = mapX(catmullRom.points[i].x, xMin.toFloat(), xMax.toFloat())
+            sb.append("${mappedX.svg()},${catmullRom.points[i].y.svg()} ")
+        }
+        sb.dropLast(1)
+        sb.append("\" />")
+
+        svg.addLine(sb.toString())
+
+        val svgStr = svg.build()
+        out(svgStr)
 
         noLoop()
     }

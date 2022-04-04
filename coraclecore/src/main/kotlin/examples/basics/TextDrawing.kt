@@ -1,6 +1,7 @@
 package examples.basics
 
 import coracle.Drawing
+import coracle.TWO_PI
 import kotlin.math.cos
 import kotlin.math.sin
 

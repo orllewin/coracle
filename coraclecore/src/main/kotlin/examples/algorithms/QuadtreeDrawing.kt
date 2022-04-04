@@ -1,8 +1,6 @@
 package examples.algorithms
 
-import coracle.Coord
-import coracle.Drawing
-import coracle.random
+import coracle.*
 import coracle.shapes.Point
 import coracle.shapes.Rect
 import kotlin.math.cos

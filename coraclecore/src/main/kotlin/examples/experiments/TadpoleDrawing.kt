@@ -195,9 +195,9 @@ class TadpoleDrawing: Drawing() {
 
         fun draw() {
             val diam = if(cycles < allowedCycles/2){
-                map(cycles.toFloat(), 0f, allowedCycles.toFloat(), 2f, maxSize)
+                Math.map(cycles.toFloat(), 0f, allowedCycles.toFloat(), 2f, maxSize)
             }else{
-                map(cycles.toFloat(), 0f, allowedCycles.toFloat(), maxSize, 2f)
+                Math.map(cycles.toFloat(), 0f, allowedCycles.toFloat(), maxSize, 2f)
             }
             checkBounds(diam)
             fill(tadpoleColour)

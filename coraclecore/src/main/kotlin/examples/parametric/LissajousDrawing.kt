@@ -2,6 +2,7 @@ package examples.parametric
 
 import coracle.Coord
 import coracle.Drawing
+import coracle.TWO_PI
 import coracle.random
 import kotlin.math.cos
 import kotlin.math.sin

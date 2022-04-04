@@ -1,4 +1,4 @@
-import  examples.algorithms.*
+import examples.experiments.CatmulRomDrawing
 
 fun main() {
     CatmulRomDrawing()

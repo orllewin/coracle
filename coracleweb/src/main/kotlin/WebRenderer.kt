@@ -1,23 +1,28 @@
 
 import coracle.Colour
 import coracle.Drawing
-import coracle.Drawing.Companion.TAU
 import coracle.Renderer
+import coracle.TAU
 import kotlinx.browser.document
 import kotlinx.browser.window
 import org.w3c.dom.CanvasRenderingContext2D
 import org.w3c.dom.HTMLCanvasElement
-import kotlin.math.floor
-import kotlin.math.round
+import org.w3c.dom.HTMLElement
 
-
-class WebRenderer(canvasId: String): Renderer() {
+class WebRenderer(canvasId: String, outId: String? = null): Renderer() {
 
     private var canvas: HTMLCanvasElement = document.getElementById(canvasId) as HTMLCanvasElement
+    private var outElement: HTMLElement? = null
     private var context: CanvasRenderingContext2D = canvas.getContext("2d") as CanvasRenderingContext2D
     private var drawing: Drawing? = null
 
     private var looping = true
+
+    init {
+        outId?.let{
+            outElement = document.getElementById(outId) as HTMLElement
+        }
+    }
 
     override fun drawing(drawing: Drawing) {
         this.drawing = drawing
@@ -44,6 +49,10 @@ class WebRenderer(canvasId: String): Renderer() {
 
     override fun init(){
 
+    }
+
+    override fun out(out: String) {
+        outElement?.innerHTML = "${outElement?.innerHTML.toString().trim()}\n$out"
     }
 
     override fun size(width: Int, height: Int) {

@@ -1,6 +1,7 @@
 package examples.algorithms
 
 import coracle.Drawing
+import coracle.Math
 import coracle.random
 import coracle.shapes.Circle
 import coracle.shapes.Point
