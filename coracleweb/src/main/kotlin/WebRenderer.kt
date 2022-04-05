@@ -5,6 +5,7 @@ import coracle.Renderer
 import coracle.TAU
 import kotlinx.browser.document
 import kotlinx.browser.window
+import kotlinx.dom.appendText
 import org.w3c.dom.CanvasRenderingContext2D
 import org.w3c.dom.HTMLCanvasElement
 import org.w3c.dom.HTMLElement
@@ -20,7 +21,9 @@ class WebRenderer(canvasId: String, outId: String? = null): Renderer() {
 
     init {
         outId?.let{
-            outElement = document.getElementById(outId) as HTMLElement
+            document.getElementById(outId)?.also { element ->
+                outElement = element as HTMLElement
+            }
         }
     }
 
@@ -51,8 +54,8 @@ class WebRenderer(canvasId: String, outId: String? = null): Renderer() {
 
     }
 
-    override fun out(out: String) {
-        outElement?.innerHTML = "${outElement?.innerHTML.toString().trim()}\n$out"
+    override fun print(out: String) {
+        outElement?.appendText("${out}\n")
     }
 
     override fun size(width: Int, height: Int) {

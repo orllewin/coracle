@@ -18,7 +18,7 @@ abstract class Renderer {
     abstract fun start()
     abstract fun noLoop()
     abstract fun init()
-    abstract fun out(out: String)
+    abstract fun print(out: String)
     abstract fun size(width: Int, height: Int)
     abstract fun matchWidth()
     abstract fun matchHeight()

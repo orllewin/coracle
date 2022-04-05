@@ -25,7 +25,7 @@ class CatmulRomSVGDrawing: Drawing() {
     }
 
     override fun draw() {
-        out("Starting draw...")
+        print("Starting draw...")
         matchWidth()
         background(0xeeeae4)
 
@@ -86,7 +86,7 @@ class CatmulRomSVGDrawing: Drawing() {
         svg.addLine(sb.toString())
 
         val svgStr = svg.build()
-        out(svgStr)
+        print(svgStr)
 
         noLoop()
     }

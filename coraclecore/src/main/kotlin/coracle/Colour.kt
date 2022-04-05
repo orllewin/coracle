@@ -26,6 +26,8 @@ class Colour(val c: Int) {
             return Colour((a.r + (b.r - a.r) * t).toInt(), (a.g + (b.g - a.g) * t).toInt(), (a.b + (b.b - a.b) * t).toInt())
         }
 
+        fun random(): Colour = Colour(randomInt(0, 255), randomInt(0, 255), randomInt(0, 255))
+
         fun red(colour: Int): Int = (colour shr 16) and 0xFF
         fun green(colour: Int): Int = (colour shr 8) and 0xFF
         fun blue(colour: Int): Int = (colour shr 0) and 0xFF

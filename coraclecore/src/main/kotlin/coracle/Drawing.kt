@@ -43,7 +43,7 @@ abstract class Drawing {
         renderer.start()
     }
 
-    fun out(output: String) = renderer.out(output)
+    fun print(output: String) = renderer.print(output)
 
     fun noLoop() = renderer.noLoop()
 

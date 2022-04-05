@@ -1,21 +1,27 @@
-package examples.algorithms
+package examples.experiments
 
 import coracle.*
+import coracle.Math.map
 import coracle.shapes.Circle
 import coracle.shapes.Rect
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt
 
-class SpatialHashCirclePacking: Drawing() {
+class SpatialHashCirclePackingGrowth: Drawing() {
 
     private lateinit var spatialHash: SpatialHash
     private var maxRad = randomInt(8, 20)
 
-    private val backgroundColour = 0xF2EDF2
-    private val gridColour = 0xC3BDD4
-    private val defaultColour = 0xA87CAA
-    private val boundaryColour = 0xC57596
+    private val backgroundColour = 0xffffff
+    private var colourA = Colour.random()
+    private var colourB = Colour.random()
+
+    private var angle = 0.0f
+    private var areaRad = 25
+
+    private var frame = 0
+    private val exportSVG = false
 
     override fun setup() {
         size(600, 600)
@@ -23,7 +29,6 @@ class SpatialHashCirclePacking: Drawing() {
         val columns = randomInt(3, 8)
         val rows = randomInt(3, 8)
         spatialHash = SpatialHash(columns, rows)
-        print("Columns: $columns Rows: $rows Maximum radius: $maxRad")
     }
 
     override fun draw() {
@@ -34,11 +39,26 @@ class SpatialHashCirclePacking: Drawing() {
             .grow()
             .checkCells()
             .draw()
+
+        if(areaRad < (width/2 * 0.95f) && frame % 7 == 0) areaRad++
+
+        if(exportSVG) {
+
+            frame++
+
+            if (frame >= 1000) {
+                val svg = SVG(width, height)
+                spatialHash.svg(svg)
+                print(svg.build())
+                noLoop()
+            }
+        }
     }
 
     private fun coordWithinCircle(): Coord {
-        val a = random(0f, 1f) * TWO_PI
-        val r = ((width/2) * 0.8) * sqrt(random(0f, 1f))
+        val a = angle * TWO_PI
+        angle += 0.003f
+        val r = areaRad * sqrt(random(0f, 1f))
         val x = r * cos(a)
         val y = r * sin(a)
         return Coord(width/2 + x.toFloat(), height/2 + y.toFloat())
@@ -46,14 +66,22 @@ class SpatialHashCirclePacking: Drawing() {
 
     inner class GrowingCircle(x: Float, y: Float, radius: Int): Circle(x, y, radius){
         var growing = true
-        var colour = defaultColour
 
         fun draw(){
             noStroke()
-            fill(colour, 1f)
+            fill(calculateColour())
             circle(x, y, r)
         }
+
+        private fun calculateColour(): Int{
+            val dx = x - width/2f
+            val dy = y - height/2f
+            val distance = sqrt(dx * dx + dy * dy)
+            return Color.lerp(colourA, colourB, map(distance, 0f, width/2f, 0f, 1f)).c
+        }
     }
+
+
 
     inner class SpatialHash(private val columns: Int, private val rows: Int){
 
@@ -162,7 +190,6 @@ class SpatialHashCirclePacking: Drawing() {
                 val nativeRect = cellsRects[key]
                 circles.forEach { c ->
                     if(!fullyEnclosed(c, nativeRect!!)){
-                        c.colour = boundaryColour
                         addToNeighbouringCells(key, c)
                     }
                 }
@@ -228,12 +255,22 @@ class SpatialHashCirclePacking: Drawing() {
             cellPopulations.forEach { cellCollection ->
                 cellCollection.value.forEach { c -> c.draw() }
             }
+        }
 
-            stroke(gridColour, 0.35f)
-            noFill()
-            cellsRects.forEach { rect ->
-                rect(rect.value)
+        fun svg(svg: SVG){
+            cellPopulations.forEach { cellCollection ->
+                cellCollection.value.forEach { c ->
+                        val colour = Colour(calculateColour(c))
+                        svg.addLine(c.toSVG(colour.toHexString()))
+                }
             }
+        }
+
+        private fun calculateColour(circle: Circle): Int{
+            val dx = circle.x - width/2f
+            val dy = circle.y - height/2f
+            val distance = sqrt(dx * dx + dy * dy)
+            return Color.lerp(colourA, colourB, map(distance, 0f, width/2f, 0f, 1f)).c
         }
     }
 }
