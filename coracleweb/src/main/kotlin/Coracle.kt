@@ -1,9 +1,7 @@
-import examples.algorithms.SpatialHashCirclePacking
-import examples.experiments.CatmulRomSVGDrawing
-import examples.experiments.SpatialHashCirclePackingGrowth
+import reference.ReferenceBezier
 
 fun main() {
-    SpatialHashCirclePackingGrowth()
+    ReferenceBezier()
         .renderer(WebRenderer("coracle_canvas", "out_area"))
         .start()
 }

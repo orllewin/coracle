@@ -1,29 +1,30 @@
-package examples.algorithms
+package examples.experiments
 
 import coracle.*
+import coracle.Math.map
 import coracle.shapes.Circle
 import coracle.shapes.Rect
-import kotlin.math.cos
-import kotlin.math.sin
 import kotlin.math.sqrt
 
-class SpatialHashCirclePacking: Drawing() {
+class SpatialHashCircleReverse: Drawing() {
 
     private lateinit var spatialHash: SpatialHash
     private var maxRad = randomInt(8, 20)
 
-    private val backgroundColour = 0xF2EDF2
-    private val gridColour = 0xC3BDD4
-    private val defaultColour = 0xA87CAA
-    private val boundaryColour = 0xC57596
+    private val backgroundColour = 0xffffff
+    private var colourA = Colour.random()
+    private var colourB = Colour.random()
+
+    private var startRad = 600f
 
     override fun setup() {
         size(600, 600)
 
+        startRad = (width/2 * 0.95f)
+
         val columns = randomInt(3, 8)
         val rows = randomInt(3, 8)
         spatialHash = SpatialHash(columns, rows)
-        print("Columns: $columns Rows: $rows Maximum radius: $maxRad")
     }
 
     override fun draw() {
@@ -34,26 +35,39 @@ class SpatialHashCirclePacking: Drawing() {
             .grow()
             .checkCells()
             .draw()
+
+        when {
+            startRad > 10 -> startRad -= 10
+            else -> startRad = (width/2 * 0.95f)
+        }
     }
 
-    private fun coordWithinCircle(): Coord {
-        val a = random(0f, 1f) * TWO_PI
-        val r = ((width/2) * 0.8) * sqrt(random(0f, 1f))
-        val x = r * cos(a)
-        val y = r * sin(a)
-        return Coord(width/2 + x.toFloat(), height/2 + y.toFloat())
+    private fun coordWithinCircleReverse(): Coord?{
+        if(startRad - 20 < 0) return null
+        val c = randomCircleCoord(startRad - 20, startRad)
+        c.x += width/2
+        c.y += height/2
+        return c
     }
 
     inner class GrowingCircle(x: Float, y: Float, radius: Int): Circle(x, y, radius){
         var growing = true
-        var colour = defaultColour
 
         fun drawGrowingCircle(){
             noStroke()
-            fill(colour, 1f)
+            fill(calculateColour())
             circle(x, y, r)
         }
+
+        private fun calculateColour(): Int{
+            val dx = x - width/2f
+            val dy = y - height/2f
+            val distance = sqrt(dx * dx + dy * dy)
+            return Color.lerp(colourA, colourB, map(distance, 0f, width/2f, 0f, 1f)).c
+        }
     }
+
+
 
     inner class SpatialHash(private val columns: Int, private val rows: Int){
 
@@ -86,8 +100,10 @@ class SpatialHashCirclePacking: Drawing() {
 
         fun addMultiple(count: Int): SpatialHash{
             repeat(count){
-                val randCoord = coordWithinCircle()
-                add(GrowingCircle(randCoord.x, randCoord.y, 1))
+                val randCoord = coordWithinCircleReverse()
+                randCoord?.let{
+                    add(GrowingCircle(randCoord.x, randCoord.y, 1))
+                }
             }
             return this
         }
@@ -116,7 +132,7 @@ class SpatialHashCirclePacking: Drawing() {
                 val circles = cellCollection.value
                 val neighbours = cellNeighbours[cellCollection.key]
                 circles.forEach { c ->
-                    if(c.growing && c.r < maxRad){
+                    if(c.growing && c.r < maxRad(c)){
                         c.r++
                         if(collision(c, circles) || collision(c, neighbours ?: emptyList())){
                             c.r--
@@ -129,6 +145,10 @@ class SpatialHashCirclePacking: Drawing() {
             }
 
             return this
+        }
+
+        private fun maxRad(circle: Circle): Int{
+            return map(distanceToOrigin(circle), 0f,(width.toFloat() * 0.85f), 40f, 2f).toInt()
         }
 
         private fun collision(c: Circle, circles: List<Circle>): Boolean{
@@ -162,7 +182,6 @@ class SpatialHashCirclePacking: Drawing() {
                 val nativeRect = cellsRects[key]
                 circles.forEach { c ->
                     if(!fullyEnclosed(c, nativeRect!!)){
-                        c.colour = boundaryColour
                         addToNeighbouringCells(key, c)
                     }
                 }
@@ -228,12 +247,25 @@ class SpatialHashCirclePacking: Drawing() {
             cellPopulations.forEach { cellCollection ->
                 cellCollection.value.forEach { c -> c.drawGrowingCircle() }
             }
+        }
 
-            stroke(gridColour, 0.35f)
-            noFill()
-            cellsRects.forEach { rect ->
-                rect(rect.value)
+        fun svg(svg: SVG){
+            cellPopulations.forEach { cellCollection ->
+                cellCollection.value.forEach { c ->
+                    val colour = Colour(calculateColour(c))
+                    svg.addLine(c.toSVG(colour.toHexString()))
+                }
             }
+        }
+
+        private fun calculateColour(circle: Circle): Int{
+            return Color.lerp(colourA, colourB, map(distanceToOrigin(circle), 0f, width/2f, 0f, 1f)).c
+        }
+
+        private fun distanceToOrigin(circle: Circle): Float {
+            val dx = circle.x - width / 2f
+            val dy = circle.y - height / 2f
+            return sqrt(dx * dx + dy * dy)
         }
     }
 }

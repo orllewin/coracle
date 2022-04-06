@@ -1,6 +1,7 @@
 package coracle.shapes
 
 import coracle.Coord
+import coracle.Easel
 import coracle.svg
 
 open class Circle(var x: Float, var y: Float, var r: Float) {
@@ -11,5 +12,9 @@ open class Circle(var x: Float, var y: Float, var r: Float) {
 
     fun toSVG(colour: String): String{
        return "<circle cx=\"${x.svg()}\" cy=\"${y.svg()}\" r=\"${r.svg()}\" style=\"fill:$colour\" />"
+    }
+
+    fun draw(){
+        Easel.drawing?.circle(this)
     }
 }

@@ -1,5 +1,8 @@
 package coracle
 
+import kotlin.math.cos
+import kotlin.math.sin
+import kotlin.math.sqrt
 import kotlin.random.Random
 
 const val PI = 3.1415927
@@ -48,4 +51,20 @@ fun randomInt(start: Number, end: Number): Int = Random.nextLong(start.toLong(),
 fun randomInt(number: Number): Int{
     if(number.toFloat() <= 0) return 0
     return Random.nextLong(0L, number.toLong()).toInt()
+}
+
+fun randomCircleCoord(innerRadius: Number, outerRadius: Number): Coord {
+    val a = random(0f, 1f) * TWO_PI
+    val r = sqrt(random(sq(innerRadius.toFloat()), sq(outerRadius.toFloat())))
+    val x = r * cos(a)
+    val y = r * sin(a)
+    return Coord(x, y)
+}
+
+fun sq(n: Float): Float{
+    return n * n
+}
+
+fun sq(n: Double): Double{
+    return n * n
 }

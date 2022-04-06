@@ -27,7 +27,7 @@ class CircleBoundaryDrawing: Drawing() {
 
     override fun draw() {
         background(DEFAULT_BACKGROUND)
-        boundary.draw()
+        boundary.drawBoundary()
 
         noStroke()
 
@@ -35,7 +35,7 @@ class CircleBoundaryDrawing: Drawing() {
         if(boundary contains cell) cell.colour = 0xff00cc
         cells.add(cell)
 
-        cells.forEach(Cell::draw)
+        cells.forEach(Cell::drawCell)
 
         if(cells.size > 250) cells.clear()
     }
@@ -43,7 +43,7 @@ class CircleBoundaryDrawing: Drawing() {
     inner class Cell(x: Float, y: Float): Point(x, y) {
         var colour = DEFAULT_FOREGROUND
 
-        fun draw(){
+        fun drawCell(){
             fill(colour, 0.1f)
             circle(x, y, cellRadius)
 
@@ -57,7 +57,7 @@ class CircleBoundaryDrawing: Drawing() {
         infix fun contains(point: Point): Boolean =
             ((x - point.x ) * (x - point.x )) + ((y - point.y ) * (y - point.y)) <= r * r
 
-        fun draw(){
+        fun drawBoundary(){
             noFill()
             stroke(DEFAULT_FOREGROUND, 0.15f)
             circle(boundary.x, boundary.y, r)

@@ -11,6 +11,7 @@ data class Coord(var x: Float, var y: Float){
     }
 
     constructor(x: Int, y: Int) : this(x.toFloat(), y.toFloat())
+    constructor(x: Double, y: Double) : this(x.toFloat(), y.toFloat())
 
     fun dist(coord: Coord): Float {
         val dx = this.x - coord.x

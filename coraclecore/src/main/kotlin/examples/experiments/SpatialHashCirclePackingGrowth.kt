@@ -67,7 +67,7 @@ class SpatialHashCirclePackingGrowth: Drawing() {
     inner class GrowingCircle(x: Float, y: Float, radius: Int): Circle(x, y, radius){
         var growing = true
 
-        fun draw(){
+        fun drawGrowingCircle(){
             noStroke()
             fill(calculateColour())
             circle(x, y, r)
@@ -253,7 +253,7 @@ class SpatialHashCirclePackingGrowth: Drawing() {
 
         fun draw(){
             cellPopulations.forEach { cellCollection ->
-                cellCollection.value.forEach { c -> c.draw() }
+                cellCollection.value.forEach { c -> c.drawGrowingCircle() }
             }
         }
 

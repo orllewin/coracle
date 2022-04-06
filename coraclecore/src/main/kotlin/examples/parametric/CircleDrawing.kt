@@ -32,8 +32,6 @@ class CircleDrawing: Drawing() {
         if (step == segmentCount) step = -1
         step++
 
-        translate(0, 0)
-        fill(0xdeefff, 0.10f)
-        rect(0, 0, width, height)
+        foreground(0xdeefff, 0.10f)
     }
 }
