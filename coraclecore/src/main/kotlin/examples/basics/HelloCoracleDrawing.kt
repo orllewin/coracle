@@ -8,6 +8,7 @@ class HelloCoracleDrawing: Drawing() {
 
     override fun setup() {
         size(450, 200)
+        if(isAndroid()) strokeWeight(5)
     }
 
     override fun draw() {

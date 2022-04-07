@@ -38,6 +38,18 @@ object Math {
         (If you have points plotted in a circle you can get neighbours by using current index -1 and +1)
      */
     fun posMod(index: Int, size: Int): Int = ((index % size) + size) % size
+
+    fun constrain(value: Float, min: Float, max: Float): Float = when {
+        value < min -> min
+        value > max -> max
+        else -> value
+    }
+
+    fun constrain(value: Int, min: Int, max: Int): Int = when {
+        value < min -> min
+        value > max -> max
+        else -> value
+    }
 }
 
 fun random(start: Number, end: Number): Float = Random.nextLong(start.toLong(), end.toLong()).toFloat()

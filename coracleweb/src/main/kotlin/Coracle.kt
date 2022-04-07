@@ -1,7 +1,8 @@
-import reference.ReferenceBezier
+import examples.basics.ShapeDrawing
+import examples.interactive.ConstrainDrawing
 
 fun main() {
-    ReferenceBezier()
+    ShapeDrawing()
         .renderer(WebRenderer("coracle_canvas", "out_area"))
         .start()
 }

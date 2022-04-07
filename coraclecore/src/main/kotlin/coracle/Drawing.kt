@@ -61,9 +61,14 @@ abstract class Drawing {
     fun noLoop() = renderer.noLoop()
 
     fun size(width: Int, height: Int){
-        this.width = width
-        this.height = height
-        renderer.size(width, height)
+        when (renderer.platform) {
+            Renderer.Platform.Android -> print("size(w,h) ignored on Android")
+            else -> {
+                this.width = width
+                this.height = height
+                renderer.size(width, height)
+            }
+        }
     }
 
     fun translate(x: Int, y: Int){
@@ -86,18 +91,23 @@ abstract class Drawing {
     fun background(colour: Int) = renderer.background(colour)
     fun background(colour: Colour) = renderer.background(colour.c)
     fun background() = renderer.background(WHITE)
-    fun foreground(colour: Int, @FloatRange(from = 0.0f, to = 1.0f) alpha: Float){
+    fun foreground(colour: Int, alpha: Float){
+        val mode = renderer.drawingMode
+        noStroke()
         pushMatrix()
         translate(0, 0)
         fill(colour, alpha)
         rect(0, 0, width, height)
         popMatrix()
+        renderer.drawingMode = mode
     }
     fun fill(colour: Int) = renderer.fill(colour)
     fun fill(colour: Colour) = renderer.fill(colour.c)
     fun fill(colour: Int, alpha: Float) = renderer.fill(colour, alpha)
     fun fill(colour: Colour, alpha: Float) = renderer.fill(colour.c, alpha)
     fun noFill() = renderer.noFill()
+
+    fun strokeWeight(weight: Int) = renderer.strokeWeight(weight)
     fun stroke(colour: Int) = renderer.stroke(colour)
     fun stroke(colour: Colour) = renderer.stroke(colour.c)
     fun stroke(colour: Colour, alpha: Float) = renderer.stroke(colour.c, alpha)
@@ -120,9 +130,23 @@ abstract class Drawing {
 
     fun rect(x1: Int, y1: Int, width: Int, height: Int) = renderer.rect(x1 + xTranslation, y1 + yTranslation, width, height)
     fun rect(rect: Rect) = renderer.rect(rect.x.toInt(), rect.y.toInt(), rect.width.toInt(), rect.height.toInt())
-    fun square(cX: Int, cY: Int, d: Int) = renderer.rect(cX - d/2 + xTranslation, cY - d/2 + yTranslation, d/2, d/2)
+    fun square(cX: Int, cY: Int, d: Int) = renderer.rect(cX - d/2 + xTranslation, cY - d/2 + yTranslation, d, d)
 
     fun text(text: String, x: Int, y: Int, size: Int) = renderer.text(text, x, y, size)
 
+    fun interactiveMode(listener: CoracleEventListener? = null) = renderer.interactiveMode(listener)
 
+    var mouseX: Int
+        get() = renderer.mouseX()
+        set(value) {}
+
+
+    var mouseY: Int
+        get() = renderer.mouseY()
+        set(value) {}
+
+    //Platform Specifics
+    fun isAndroid(): Boolean = renderer.platform == Renderer.Platform.Android
+    fun isWeb(): Boolean = renderer.platform == Renderer.Platform.Web
+    fun isJVM(): Boolean = renderer.platform == Renderer.Platform.JVM
 }

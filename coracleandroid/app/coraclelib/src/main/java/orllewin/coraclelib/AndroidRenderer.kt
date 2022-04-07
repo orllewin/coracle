@@ -4,6 +4,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.view.Choreographer
+import coracle.CoracleEventListener
 import coracle.Drawing
 import coracle.Renderer
 import kotlin.math.floor
@@ -32,9 +33,10 @@ class AndroidRenderer(private val coracleView: CoracleView): Renderer() {
 
     private var canvas: Canvas? = null
 
-    private fun l(message: String) = println("CORACCLE: $message")
+    private fun l(message: String) = println("CORACLE: $message")
 
     init {
+        platform = Platform.Android
         coracleView.onCanvas{ canvas ->
             this.canvas = canvas
             coracleView.invalidate()
@@ -47,39 +49,47 @@ class AndroidRenderer(private val coracleView: CoracleView): Renderer() {
         }
         coracleView.onSizeChanged { width, height ->
             w = width
-            h = width
+            h = height
             drawing?.width = width
             drawing?.height = height
         }
     }
 
-    override fun drawing(drawing: Drawing) {
-        this.drawing = drawing
+    override fun interactiveMode(listener: CoracleEventListener?) {
+        l("interactiveMode() not implemented")
     }
 
-    var c = 0
+    override fun drawing(drawing: Drawing) { this.drawing = drawing }
 
-    private val choreographerCallback = Choreographer.FrameCallback { ms ->
-        coracleView.invalidate()
-    }
+    private val choreographerCallback = Choreographer.FrameCallback { coracleView.invalidate() }
 
     override fun start() {
         l("start")
         Choreographer.getInstance().postFrameCallback(choreographerCallback)
     }
 
-    override fun init() {
-        //todo
+    override fun noLoop() {
+        l("noLoop() not implemented")
     }
 
-    override fun size(width: Int, height: Int) = Unit//todo
-    override fun matchWidth() = Unit//todo
+    override fun init() {
+        l("init() not implemented")
+    }
+
+    override fun print(out: String) {
+        l("print() not fully implemented: $out")
+    }
+
+    override fun size(width: Int, height: Int){
+        l("size(w, h) ignored on Android")
+    }
+    override fun matchWidth() = Unit//NOOP on Android
+    override fun matchHeight() = Unit//NOOP on Android
+
 
     override fun background(colour: Int) {
         backgroundPaint.color = convert(colour)
-        canvas?.drawRect(0F, 0F, 500f, 500f, backgroundPaint)
-        line(0, 0, w, h)
-        //rect(0, 0, 100, 100)
+        canvas?.drawRect(0F, 0F, w.toFloat(), h.toFloat(), backgroundPaint)
     }
 
     override fun smooth() {
@@ -122,6 +132,20 @@ class AndroidRenderer(private val coracleView: CoracleView): Renderer() {
         }
     }
 
+    override fun text(text: String, x: Int, y: Int, size: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun mouseX(): Int {
+        TODO("Not yet implemented")
+    }
+
+    override fun mouseY(): Int {
+        TODO("Not yet implemented")
+    }
+
+    override fun strokeWeight(weight: Int) { strokePaint.strokeWidth = weight.toFloat() }
+
     override fun stroke(colour: Int) {
         super.stroke(colour)
         strokePaint.color = convert(colour)
@@ -144,7 +168,5 @@ class AndroidRenderer(private val coracleView: CoracleView): Renderer() {
         fillPaint.alpha = floor(alpha*255).toInt()
     }
 
-    private fun convert(colour: Int): Int{
-        return Color.parseColor("#${colour.toString(16)}")
-    }
+    private fun convert(colour: Int): Int = (colour.toLong() or -0x1000000).toInt()
 }

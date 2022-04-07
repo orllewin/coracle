@@ -2,6 +2,15 @@ package coracle
 
 abstract class Renderer {
 
+    sealed class Platform{
+        object Unknown: Platform()
+        object Android: Platform()
+        object JVM: Platform()
+        object Web: Platform()
+    }
+
+    var platform: Platform = Platform.Unknown
+
     sealed class DrawingMode{
         object Stroke: DrawingMode()
         object Fill: DrawingMode()
@@ -13,6 +22,11 @@ abstract class Renderer {
     var strokeAlpha: Float = 1f
     var fill: Int = 0xffffff
     var fillAlpha = 1f
+
+    var mX = -1
+    var mY = -1
+
+    abstract fun interactiveMode(listener: CoracleEventListener?)
 
     abstract fun drawing(drawing: Drawing)
     abstract fun start()
@@ -35,6 +49,11 @@ abstract class Renderer {
     abstract fun rect(x: Int, y: Int, width: Int, height: Int)
     abstract fun text(text: String, x: Int, y: Int, size: Int)
 
+
+    abstract fun mouseX(): Int
+    abstract fun mouseY(): Int
+
+    abstract fun strokeWeight(weight: Int)
     open fun stroke(colour: Int) {
         stroke = colour
         strokeAlpha = 1f
@@ -58,6 +77,4 @@ abstract class Renderer {
 
     fun noStroke(){ drawingMode = DrawingMode.Fill }
     fun noFill(){ drawingMode = DrawingMode.Stroke }
-
-
 }

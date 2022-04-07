@@ -3,7 +3,6 @@ package orllewin.coracleandroid
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import examples.basics.HelloCoracleDrawing
-import examples.vectors.TadpoleDrawing
 import orllewin.coraclelib.AndroidRenderer
 
 class MainActivity : AppCompatActivity() {
@@ -11,7 +10,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        TadpoleDrawing()
+        HelloCoracleDrawing()
             .renderer(AndroidRenderer(findViewById(R.id.coracle_view)))
             .start()
     }

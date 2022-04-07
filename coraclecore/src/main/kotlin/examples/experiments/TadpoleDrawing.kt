@@ -25,7 +25,7 @@ class TadpoleDrawing: Drawing() {
     }
 
     override fun draw() {
-        matchWidth()
+        matchWindow()
 
         tadpoles.forEach { tadpole ->
             tadpole.update().draw()

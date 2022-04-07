@@ -1,14 +1,15 @@
 
-import coracle.Colour
-import coracle.Drawing
-import coracle.Renderer
-import coracle.TAU
+import coracle.*
 import kotlinx.browser.document
 import kotlinx.browser.window
 import kotlinx.dom.appendText
 import org.w3c.dom.CanvasRenderingContext2D
 import org.w3c.dom.HTMLCanvasElement
 import org.w3c.dom.HTMLElement
+import org.w3c.dom.events.Event
+import org.w3c.dom.events.EventListener
+import org.w3c.dom.events.EventTarget
+import org.w3c.dom.events.MouseEvent
 
 class WebRenderer(canvasId: String, outId: String? = null): Renderer() {
 
@@ -24,6 +25,30 @@ class WebRenderer(canvasId: String, outId: String? = null): Renderer() {
             document.getElementById(outId)?.also { element ->
                 outElement = element as HTMLElement
             }
+        }
+    }
+
+    override fun interactiveMode(listener: CoracleEventListener?){
+        canvas.addEventListener("mousemove", { event ->
+                val mouseEvent = event as MouseEvent
+                mX = mouseEvent.offsetX.toInt()
+                mY = mouseEvent.offsetY.toInt()
+        })
+
+        listener?.let{
+            canvas.addEventListener("mousedown", { event ->
+                val mouseEvent = event as MouseEvent
+                mX = mouseEvent.offsetX.toInt()
+                mY = mouseEvent.offsetY.toInt()
+                listener.mousePressed()
+            })
+
+            canvas.addEventListener("mouseup", { event ->
+                val mouseEvent = event as MouseEvent
+                mX = mouseEvent.offsetX.toInt()
+                mY = mouseEvent.offsetY.toInt()
+                listener.mouseReleased()
+            })
         }
     }
 
@@ -168,4 +193,11 @@ class WebRenderer(canvasId: String, outId: String? = null): Renderer() {
         val c = Colour(colour)
         return "rgba(${c.r}, ${c.g}, ${c.b}, ${alpha})"
     }
+
+    override fun mouseX(): Int = mX
+    override fun mouseY(): Int = mY
+
+    override fun strokeWeight(weight: Int) = print("strokeWeight() not implemented in WebRenderer")
+
+
 }

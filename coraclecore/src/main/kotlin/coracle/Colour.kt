@@ -1,7 +1,10 @@
 package coracle
 
+import kotlin.math.max
+import kotlin.math.min
+
 typealias Color = Colour
-class Colour(val c: Int) {
+class Colour(var c: Int) {
 
     constructor(r: Int, g: Int, b: Int): this((r and 0xff shl 16) or (g and 0xff shl 8) or (b and 0xff))
     constructor(r: Float, g: Float, b: Float): this((r.toInt() and 0xff shl 16) or (g.toInt() and 0xff shl 8) or (b.toInt() and 0xff))
@@ -19,6 +22,18 @@ class Colour(val c: Int) {
 
     fun toHexString(): String{
         return "#${c.toString(16)}"
+    }
+
+    fun brighter(): Colour{
+        val brighter =  Colour(min(255, (this.r * 1.2).toInt()), min(255, (this.g * 1.2).toInt()), min(255, (this.b * 1.2).toInt()))
+        brighter.a = this.a
+        return brighter
+    }
+
+    fun darker(): Colour{
+        val darker =  Colour(max(0, (this.r * 0.8).toInt()), max(0, (this.g * 0.8).toInt()), max(0, (this.b * 0.8).toInt()))
+        darker.a = this.a
+        return darker
     }
 
     companion object{

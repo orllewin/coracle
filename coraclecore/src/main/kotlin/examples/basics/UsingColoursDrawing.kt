@@ -18,7 +18,7 @@ import coracle.Drawing
 class UsingColoursDrawing: Drawing() {
 
     override fun setup() {
-        size(400, 75)
+        size(400, 125)
         noStroke()
     }
 
@@ -26,7 +26,7 @@ class UsingColoursDrawing: Drawing() {
 
         background(Color(255, 200, 235))
 
-        val y = 40
+        var y = 40
         val r = 15
 
         fill(Colour(255, 0, 200))//Colour object
@@ -84,5 +84,47 @@ class UsingColoursDrawing: Drawing() {
 
         fill(Colour.lerp(a, b, 1f))
         circle(365, y, r)
+
+        //Using brighter
+        var c = Colour(80, 50, 120)
+        y = 90
+        fill(c)
+        circle(30, y, r)
+
+        c = c.brighter()
+        fill(c)
+        circle(60, y, r)
+
+        c = c.brighter()
+        fill(c)
+        circle(90, y, r)
+
+        c = c.brighter()
+        fill(c)
+        circle(120, y, r)
+
+        c = c.brighter()
+        fill(c)
+        circle(150, y, r)
+
+        c = Colour(120, 80, 50)
+        fill(c)
+        circle(180, y, r)
+
+        c = c.darker()
+        fill(c)
+        circle(210, y, r)
+
+        c = c.darker()
+        fill(c)
+        circle(240, y, r)
+
+        c = c.darker()
+        fill(c)
+        circle(270, y, r)
+
+        c = c.darker()
+        fill(c)
+        circle(300, y, r)
     }
 }
