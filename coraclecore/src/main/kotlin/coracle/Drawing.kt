@@ -13,6 +13,9 @@ abstract class Drawing {
     var yTranslation: Int = 0
     val matrixStack = mutableListOf<Pair<Int, Int>>()
 
+    private val onetimeKeys = arrayListOf<Int>()
+    private val onetimeNoForegroundAndroid = 1
+
     fun pushMatrix(){
         matrixStack.add(Pair(xTranslation, yTranslation))
     }
@@ -58,6 +61,15 @@ abstract class Drawing {
 
     fun print(output: String) = renderer.print(output)
 
+    fun onetimePrint(key: Int, message: String){
+        when {
+            !onetimeKeys.contains(key) -> {
+                onetimeKeys.add(key)
+                print(message)
+            }
+        }
+    }
+
     fun noLoop() = renderer.noLoop()
 
     fun size(width: Int, height: Int){
@@ -92,14 +104,19 @@ abstract class Drawing {
     fun background(colour: Colour) = renderer.background(colour.c)
     fun background() = renderer.background(WHITE)
     fun foreground(colour: Int, alpha: Float){
-        val mode = renderer.drawingMode
-        noStroke()
-        pushMatrix()
-        translate(0, 0)
-        fill(colour, alpha)
-        rect(0, 0, width, height)
-        popMatrix()
-        renderer.drawingMode = mode
+        when {
+            isAndroid() -> onetimePrint(onetimeNoForegroundAndroid, "foreground(c,a) not supported on Android")
+            else -> {
+                val mode = renderer.drawingMode
+                noStroke()
+                pushMatrix()
+                translate(0, 0)
+                fill(colour, alpha)
+                rect(0, 0, width, height)
+                popMatrix()
+                renderer.drawingMode = mode
+            }
+        }
     }
     fun fill(colour: Int) = renderer.fill(colour)
     fun fill(colour: Colour) = renderer.fill(colour.c)

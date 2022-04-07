@@ -14,7 +14,6 @@ class TadpoleDrawing: Drawing() {
     private var maxSize = 8f
     private var tadpoleColour = 0x9da7cb
 
-
     override fun setup() {
         size(450, 450)
         noStroke()
@@ -22,11 +21,13 @@ class TadpoleDrawing: Drawing() {
         repeat(count){ index ->
             tadpoles.add(Tadpole(index))
         }
+
+        if(isAndroid()) maxSize = 24f
     }
 
     override fun draw() {
         matchWindow()
-
+        
         tadpoles.forEach { tadpole ->
             tadpole.update().draw()
         }
@@ -48,8 +49,7 @@ class TadpoleDrawing: Drawing() {
         tadpoles.addAll(touchOffspring)
         touchOffspring.clear()
 
-        fill(0xeeeae4, 0.28f)
-        rect(0, 0, width, height)
+        foreground(0xeeeae4, 0.28f)
     }
 
     inner class Tadpole(private val id: Int, spawnLocation: Vector?, private val parentId: Int?){

@@ -9,6 +9,22 @@
     <orllewin.coraclelib.CoracleView
         android:id="@+id/coracle_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_above="@+id/print_scroll"/>
+
+    <ScrollView
+        android:id="@+id/print_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#feeeee"
+        android:layout_alignParentBottom="true">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/coracle_print_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"/>
+    </ScrollView>
 
 </RelativeLayout>

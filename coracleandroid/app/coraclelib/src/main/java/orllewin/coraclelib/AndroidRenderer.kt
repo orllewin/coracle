@@ -9,8 +9,11 @@ import coracle.Drawing
 import coracle.Renderer
 import kotlin.math.floor
 
-class AndroidRenderer(private val coracleView: CoracleView): Renderer() {
+class AndroidRenderer(private val coracleView: CoracleView, private val printer: Printer? = null): Renderer() {
 
+    interface Printer{
+        fun print(message: String)
+    }
     private val backgroundPaint = Paint().apply {
         style = Paint.Style.FILL
         color = Color.RED
@@ -76,9 +79,7 @@ class AndroidRenderer(private val coracleView: CoracleView): Renderer() {
         l("init() not implemented")
     }
 
-    override fun print(out: String) {
-        l("print() not fully implemented: $out")
-    }
+    override fun print(out: String) { printer?.print(out) }
 
     override fun size(width: Int, height: Int){
         l("size(w, h) ignored on Android")
@@ -132,17 +133,9 @@ class AndroidRenderer(private val coracleView: CoracleView): Renderer() {
         }
     }
 
-    override fun text(text: String, x: Int, y: Int, size: Int) {
-        TODO("Not yet implemented")
-    }
-
-    override fun mouseX(): Int {
-        TODO("Not yet implemented")
-    }
-
-    override fun mouseY(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun text(text: String, x: Int, y: Int, size: Int) = Unit//todo: Not implemented on Android
+    override fun mouseX(): Int = -1//todo: Not implemented on Android
+    override fun mouseY(): Int = -1//todo: Not implemented on Android
 
     override fun strokeWeight(weight: Int) { strokePaint.strokeWidth = weight.toFloat() }
 
