@@ -8,6 +8,8 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
+		config.useVsync(true);
+		config.setTitle("Coracle");
 		new Lwjgl3Application(new Coracle(), config);
 	}
 }

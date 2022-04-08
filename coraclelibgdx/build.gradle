@@ -42,16 +42,15 @@ allprojects {
 project(":core") {
     apply plugin: "kotlin"
 
-
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+        implementation 'com.github.orllewin:coracle:coraclecore:Tag'
     }
 }
 
 project(":desktop") {
     apply plugin: "kotlin"
-
 
     dependencies {
         implementation project(":core")
