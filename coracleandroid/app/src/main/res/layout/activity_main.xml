@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <orllewin.coraclelib.CoracleView
+        android:id="@+id/coracle_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/prev_button"
+        android:layout_width="@dimen/button_diam"
+        android:layout_height="@dimen/button_diam"
+        android:layout_margin="@dimen/button_padding"
+        android:background="@null"
+        android:src="@drawable/arrow_prev"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"/>
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/next_button"
+        android:layout_width="@dimen/button_diam"
+        android:layout_height="@dimen/button_diam"
+        android:layout_margin="@dimen/button_padding"
+        android:background="@null"
+        android:src="@drawable/arrow_next"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/coracle_logo_inter"
+        android:paddingTop="16dp"
+        android:paddingStart="16dp"
+        android:tint="@color/white"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_below="@+id/logo"
+        android:paddingLeft="16dp"
+        android:text="DEMO" />
+
+</RelativeLayout>

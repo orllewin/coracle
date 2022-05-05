@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="korge-hello-world-js-4.10.1">
+    <output-path>$PROJECT_DIR$/build/libs</output-path>
+    <root id="archive" name="korge-hello-world-js-4.10.1.jar" />
+  </artifact>
+</component>

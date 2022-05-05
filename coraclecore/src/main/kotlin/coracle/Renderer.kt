@@ -1,0 +1,92 @@
+package coracle
+
+abstract class Renderer {
+
+    sealed class Platform{
+        object Unknown: Platform()
+        object Android: Platform()
+        object JVM: Platform()
+        object Web: Platform()
+    }
+
+    var platform: Platform = Platform.Unknown
+
+    sealed class DrawingMode{
+        object Stroke: DrawingMode()
+        object Fill: DrawingMode()
+        object FillAndStroke: DrawingMode()
+    }
+
+    var drawingMode: DrawingMode = DrawingMode.FillAndStroke
+    var stroke: Int = 0x000000
+    var strokeAlpha: Float = 1f
+    var fill: Int = 0xffffff
+    var fillAlpha = 1f
+
+    var mX = -1
+    var mY = -1
+
+    abstract fun interactiveMode(listener: CoracleEventListener?)
+
+    abstract fun drawing(drawing: Drawing)
+    abstract fun start()
+    abstract fun noLoop()
+    abstract fun init()
+    abstract fun print(out: String)
+    abstract fun size(width: Int, height: Int)
+    abstract fun matchWidth()
+    abstract fun matchHeight()
+
+    abstract fun clear()
+
+    abstract fun background(colour: Int)
+    abstract fun background()
+    abstract fun nativeColour(key: String): Int
+
+    abstract fun smooth()
+    abstract fun noSmooth()
+
+    //Primitives
+    abstract fun line(x1: Int, y1: Int, x2: Int, y2: Int)
+    abstract fun circle(cX: Int, cY: Int, r: Int)
+    abstract fun triangle(xA: Int, yA: Int, xB: Int, yB: Int, xC: Int, yC: Int)
+    abstract fun point(x: Int, y: Int)
+    abstract fun rect(x: Int, y: Int, width: Int, height: Int)
+    abstract fun text(text: String, x: Int, y: Int, size: Int)
+
+    //Images
+    abstract fun loadImage(key: String, onReady: (image: Image?) -> Unit)
+    abstract fun image(image: Image, x: Int, y: Int)
+    abstract fun image(image: Image, x: Int, y: Int, width: Int, height: Int)
+    abstract fun loadPixels()
+    abstract fun pixel(x: Int, y: Int): Int?
+
+
+    abstract fun mouseX(): Int
+    abstract fun mouseY(): Int
+
+    abstract fun strokeWeight(weight: Int)
+    open fun stroke(colour: Int) {
+        stroke = colour
+        strokeAlpha = 1f
+        if(drawingMode == DrawingMode.Fill) drawingMode = DrawingMode.FillAndStroke
+    }
+    open fun stroke(colour: Int, alpha: Float) {
+        stroke = colour
+        strokeAlpha = alpha
+        if(drawingMode == DrawingMode.Fill) drawingMode = DrawingMode.FillAndStroke
+    }
+    open fun fill(colour: Int) {
+        fill = colour
+        fillAlpha = 1f
+        if(drawingMode == DrawingMode.Stroke) drawingMode = DrawingMode.FillAndStroke
+    }
+    open fun fill(colour: Int, alpha: Float) {
+        fill = colour
+        fillAlpha = alpha
+        if(drawingMode == DrawingMode.Stroke) drawingMode = DrawingMode.FillAndStroke
+    }
+
+    fun noStroke(){ drawingMode = DrawingMode.Fill }
+    fun noFill(){ drawingMode = DrawingMode.Stroke }
+}

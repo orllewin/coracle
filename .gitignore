@@ -1,0 +1,9 @@
+**/.DS_Store
+coracleandroid/build/
+coracleandroid/.gradle/
+coraclecore/build/
+coraclecore/.gradle/
+coracleweb/build/
+coracleweb/.gradle/
+coraclekorge/build/
+coraclekorge/.gradle/
