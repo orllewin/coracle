@@ -4,7 +4,11 @@ import coracle.Drawing
 import coracle.random
 
 /*
+    This is an incorrect implementation of Game of Life:
     https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
+
+    Because it's done in a single pass the state of the matrix is mutating while it's iterating,
+    giving the incorrect behaviour.
  */
 class LifeDrawing: Drawing() {
 
@@ -29,7 +33,7 @@ class LifeDrawing: Drawing() {
             }
         }
 
-        translate(10, 10)
+        translate(5, 5)
 
     }
 
@@ -78,7 +82,7 @@ class LifeDrawing: Drawing() {
 
         fun draw(){
             when {
-                alive -> square(xIndex * 10, yIndex * 10, 20)
+                alive -> circle(xIndex * 10, yIndex * 10, 5)
             }
         }
 

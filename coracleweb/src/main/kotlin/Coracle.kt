@@ -1,8 +1,8 @@
-import drawings.experiments.boids.tadpoles.TadpolesTails
+import drawings.experiments.rad.RadImageConverter
 
 fun main() {
 
-    TadpolesTails()
+    RadImageConverter()
         .renderer(WebRenderer("coracle_canvas", "out_area"))
         .start()
 }

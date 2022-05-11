@@ -221,7 +221,7 @@ class WebRenderer(canvasId: String, outId: String? = null): Renderer() {
         when (drawingMode) {
             DrawingMode.Stroke -> {
                 context.beginPath()
-                context.rect(x.toDouble(), y.toDouble(), width.toDouble(), height.toDouble())
+                context.strokeRect(x.toDouble(), y.toDouble(), width.toDouble(), height.toDouble())
                 context.strokeStyle = colourConvert(stroke, strokeAlpha)
                 context.stroke()
                 context.closePath()
