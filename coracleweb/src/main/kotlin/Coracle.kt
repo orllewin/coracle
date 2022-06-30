@@ -1,8 +1,8 @@
-import drawings.experiments.boids.tadpoles.TadpolesTailsDark
+import drawings.experiments.boids.OrllewinDrawing
 
 fun main() {
 
-    TadpolesTailsDark()
+    OrllewinDrawing()
         .renderer(WebRenderer("coracle_canvas", "out_area"))
         .start()
 }

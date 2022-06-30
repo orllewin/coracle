@@ -31,7 +31,7 @@ class OrllewinDrawing: Drawing() {
     }
 
     override fun draw() {
-        matchWidth()
+        matchWindow()
         wellA.x = (width/6f) * 1.5f
         wellB.x = (width/2f)
         wellC.x = (width/6) * 4.5f
