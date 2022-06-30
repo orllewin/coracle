@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="coraclekorge-jvm-4.10.1">
-    <output-path>$PROJECT_DIR$/build/libs</output-path>
-    <root id="archive" name="coraclekorge-jvm-4.10.1.jar">
-      <element id="module-output" name="coraclekorge.jvmMain" />
-    </root>
-  </artifact>
-</component>
