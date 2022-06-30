@@ -3,9 +3,6 @@
   <component name="FacetManager">
     <facet type="kotlin-language" name="Kotlin">
       <configuration version="5" platform="JavaScript " allPlatforms="JS []" useProjectSettings="false" isTestModule="true" externalProjectId="CoracleWeb">
-        <sourceSets>
-          <sourceSet>CoracleWeb.main</sourceSet>
-        </sourceSets>
         <newMppModelJpsModuleKind>COMPILATION_AND_SOURCE_SET_HOLDER</newMppModelJpsModuleKind>
         <compilerSettings>
           <option name="additionalArguments" value="-Xir-module-name=orllewin:CoracleWeb_test -Xir-only -Xir-per-module-output-name=CoracleWeb-test -Xir-produce-klib-dir" />

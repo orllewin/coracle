@@ -36,3 +36,8 @@ kotlin {
         }
     }
 }
+
+//Fix for ARM MacOS:
+rootProject.plugins.withType(Class.forName("org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin")) {
+    rootProject.extensions.getByType(org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension.class).nodeVersion = "16.0.0"
+}

@@ -14,8 +14,8 @@ class OrllewinDrawing: Drawing() {
     private lateinit var wellB: Vector
     private lateinit var wellC: Vector
 
-    private var bodyColour = 0x205F77
-    private var backgroundColour = 0xf5f2f0
+    private var bodyColour = 0x6fe8af
+    private var backgroundColour = 0x1d1d1d
 
     override fun setup() {
         size(450, 550)
@@ -39,7 +39,7 @@ class OrllewinDrawing: Drawing() {
         wellA.y = height/2f
         wellB.y = height/2f
         wellC.y = height/2f
-        background()
+        background(backgroundColour)
 
 
         bodies.forEach { body -> body.update().draw() }
@@ -112,8 +112,7 @@ class OrllewinDrawing: Drawing() {
 
         fun draw(){
             noStroke()
-
-            fill(bodyColour, 0.2f)
+            fill(bodyColour, 0.1f)
             circle(location.x, location.y, 25)
 
             fill(bodyColour)

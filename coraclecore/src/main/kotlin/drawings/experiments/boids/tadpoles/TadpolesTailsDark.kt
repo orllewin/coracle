@@ -28,8 +28,7 @@ class TadpolesTailsDark: Drawing() {
     }
 
     override fun draw() {
-        matchWidth()
-
+        matchWindow()
         if(!inited){
             repeat(count){ index ->
                 tadpoles.add(Tadpole(index))

@@ -1,8 +1,8 @@
-import drawings.experiments.rad.RadImageConverter
+import drawings.experiments.boids.tadpoles.TadpolesTailsDark
 
 fun main() {
 
-    RadImageConverter()
+    TadpolesTailsDark()
         .renderer(WebRenderer("coracle_canvas", "out_area"))
         .start()
 }
